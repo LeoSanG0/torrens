@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Add Controllers
+use App\http\Controllers\HomeController;
+use App\http\Controllers\RoleController;
+use App\http\Controllers\UserController;
+use App\http\Controllers\TaskController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +29,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group( [ 'middleware' => [ 'auth' ] ], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('tasks', TaskController::class);
+});
