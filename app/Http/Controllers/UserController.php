@@ -21,7 +21,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.created', compact('users'));
+        return view('users.created', compact('roles'));
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
         
-        return view('users.edit', compact('name', 'roles', 'userRole'));
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
     public function update(Request $request, $id)
