@@ -27,7 +27,7 @@
                             {{-- Input for fname --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="fname">Nombes</label>
+                                    <label for="fname">Nombres</label>
                                     {!! Form::text('fname', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>

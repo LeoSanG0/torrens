@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:task_show | task_create | task_edit | task-delete', ['only' => ['index']]);
+        $this->middleware('permission:task_show|task_create|task_edit|task-delete', ['only' => ['index']]);
         $this->middleware('permission:task_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:task_edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:task_delete', ['only' => ['destroy']]);

@@ -15,7 +15,7 @@
                                 <div class="col-md-4 col-xl-4">
 
                                     <div class="card bg-c-blue order-card">
-                                        <div class="card-blok">
+                                        <div class="card-block">
                                             <h5>Usuarios</h5>
                                             @php
                                                 use App\Models\User;
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-4 col-xl-4">
                                     <div class="card bg-c-green order-card">
-                                        <div class="card-blok">
+                                        <div class="card-block">
                                             <h5>Tareas</h5>
                                             @php
                                                 use App\Models\Task;

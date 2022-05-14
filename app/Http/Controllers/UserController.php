@@ -9,14 +9,13 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use illuminate\Support\Arr;
-use Yajra\DataTables\DataTables;
 
 
 class UserController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:users_show | users_create | users_edit | users_delete', ['only' => ['index']]);
+        $this->middleware('permission:users_show|users_create|users_edit|users_delete', ['only' => ['index']]);
         $this->middleware('permission:users_create', ['only' => ['create', 'store']]);
         $this->middleware('permission:users_edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:users_delete', ['only' => ['destroy']]);
@@ -30,7 +29,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('name', 'id')->all();
+        $roles = Role::pluck('name', 'name')->all();
         return view('users.created', compact('roles'));
     }
 
@@ -41,7 +40,7 @@ class UserController extends Controller
             'lname' => 'required',
             'phone' => 'required',
             'status' => 'required',
-            'email' => 'required|email|unique:users.email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
@@ -51,7 +50,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
-        return redirect()->route('user.index');
+        return redirect()->route('users.index');
     }
 
     public function edit($id)
@@ -69,7 +68,7 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
-            'email' => 'required|email|unique:users.email' . $id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
@@ -83,10 +82,10 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-        $user->assingRole($request->input('roles'));
-        return redirect()->route('user.index');
+        $user->assignRole($request->input('roles'));
+        return redirect()->route('users.index');
     }
 
     public function destroy(User $user)

@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             @can('role_create')
-                                <a class="btn btn-warning" href="{{ route('tasks.create') }}">Nuevo</a>
+                                <a class="btn btn-warning" style="color: azure" href="{{ route('tasks.create') }}">Nuevo</a>
                             @endcan
                             <table class="table table-striped mt-2">
                                 <thead style="background-color: #f56200">
