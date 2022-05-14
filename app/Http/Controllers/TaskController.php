@@ -34,7 +34,7 @@ class TaskController extends Controller
             'task_status' => 'required'
         ]);
         Task::create($request->all());
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
     }
 
     public function show($id)
@@ -53,13 +53,23 @@ class TaskController extends Controller
             'task_status' => 'required'
         ]);
         $task->update($request->all());
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
 
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
-        return redirect()->route('task.index');
+        return redirect()->route('tasks.index');
+        // try {
+        //     $task->delete();
+        //     $type = 'success';
+        //     $msg  = 'La tarea ha sido eliminada exito';
+        // } catch (\Throwable $th) {
+        //     $type = 'error';
+        //     $msg  = 'La tarea no puede eliminarse ' . $th;
+        // }
+        // return compact('type', 'msg');
+
     }
 }

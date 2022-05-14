@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 //Add Controllers
 use App\http\Controllers\HomeController;
@@ -35,4 +37,5 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('tasks', TaskController::class);
+
 });

@@ -23,7 +23,12 @@ class SeederTablePermissions extends Seeder
             'task_show',
             'task_create',
             'task_edit',
-            'task_delete'
+            'task_delete',
+            //Users
+            'users_show',
+            'users_create',
+            'users_edit',
+            'users_delete'
         ];
         foreach($permissions as $permission){
             Permission::create(['name' => $permission]);

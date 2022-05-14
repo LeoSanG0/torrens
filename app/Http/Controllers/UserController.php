@@ -9,9 +9,19 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use illuminate\Support\Arr;
+use Yajra\DataTables\DataTables;
+
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:users_show | users_create | users_edit | users_delete', ['only' => ['index']]);
+        $this->middleware('permission:users_create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:users_edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:users_delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $users = User::paginate(10);
@@ -20,7 +30,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'id')->all();
         return view('users.created', compact('roles'));
     }
 
@@ -30,22 +40,18 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
+            'status' => 'required',
             'email' => 'required|email|unique:users.email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        $input['password']=Hash::make($input('password'));
-
+        $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->assingRole($request->input('roles'));
+        $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index');
-    }
-
-    public function show($id)
-    {
+        return redirect()->route('user.index');
     }
 
     public function edit($id)
@@ -53,7 +59,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->all();
-        
+
         return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
@@ -63,15 +69,15 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
-            'email' => 'required|email|unique:users.email'.$id,
+            'email' => 'required|email|unique:users.email' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        if (!empty($input['password'])){
+        if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }else {
+        } else {
             $input = Arr::except($input, array('password'));
         }
 
@@ -79,13 +85,20 @@ class UserController extends Controller
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
-        $user->assingRole($request->$input('roles'));
-        return redirect()->route('users.index');
+        $user->assingRole($request->input('roles'));
+        return redirect()->route('user.index');
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index');
+        try {
+            $user->delete();
+            $type = 'success';
+            $msg  = 'El Usuario ha sido eliminado exito';
+        } catch (\Throwable $th) {
+            $type = 'error';
+            $msg  = 'El Usuario no puede eliminarse ' . $th;
+        }
+        return compact('type', 'msg');
     }
 }

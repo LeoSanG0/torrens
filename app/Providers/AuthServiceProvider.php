@@ -14,5 +14,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        //Agregar user superadmin, al registrarse con ese correo Spatie ya reconoce todo los permisos
+
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('Super-admin') ? true : null;
+        });
     }
 }
