@@ -6,21 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use Spatie\Permission\Models\Role;
 
 class TaskController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('permission:task_show|task_create|task_edit|task-delete', ['only' => ['index']]);
-        $this->middleware('permission:task_create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:task_edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:task_delete', ['only' => ['destroy']]);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware('permission:task_show|task_create|task_edit|task-delete', ['only' => ['index']]);
+    //     $this->middleware('permission:task_create', ['only' => ['create', 'store']]);
+    //     $this->middleware('permission:task_edit', ['only' => ['edit', 'update']]);
+    //     $this->middleware('permission:task_delete', ['only' => ['destroy']]);
+    // }
 
     public function index()
     {
-        $tasks = Task::paginate(10);
+        $roles = Role::from('roles as r')
+                     ->where('mhr.model_id', Auth::user()->id) 
+                     ->join('model_has_roles as mhr', function($join){
+                        $join->on('mhr.role_id', '=', 'r.id');
+                        $join->where('mhr.model_type', 'App\Models\User');
+                     })      
+                     ->pluck('r.id')->toArray();
+
+        $query = Task::query()->from('tasks as t');
+       
+        if(!in_array(1, $roles)){
+            $tasks = $query->where('assigned_to', Auth::user()->id);
+        }
+
+        $tasks = $query->paginate(10);
+        
         return view('task.index', compact('tasks'));
     }
 

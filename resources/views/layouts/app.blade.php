@@ -112,7 +112,7 @@
 
         setInterval(() => {
             notificatinTasks()
-        }, 5000);
+        }, 50000);
     })
 
     function notificatinTasks() {

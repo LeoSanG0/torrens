@@ -10,9 +10,9 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            @can('role_create')
+                            
                                 <a class="btn btn-warning" style="color: azure" href="{{ route('tasks.create') }}">Nuevo</a>
-                            @endcan
+
                             <table class="table table-striped mt-2">
                                 <thead style="background-color: #f56200">
                                     <th style="color:#fff">Descripción</th>
@@ -29,16 +29,12 @@
                                             <td>{{ $task->assignedTo->fullname }}</td>
                                             <td>{{ $task->ownerTask->fullname }}</td>
                                             <td>
-                                                @can('task_edit')
                                                     <a class="btn btn-primary"
                                                         href="{{ route('tasks.edit', $task->id) }}">Editar</a>
-                                                @endcan
 
-                                                @can('task_delete')
                                                     {!! Form::open(['method' => 'DELETE', 'route' => ['tasks.destroy', $task->id], 'style' => 'display:inline']) !!}
                                                     {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
                                                     {!! Form::close() !!}
-                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach
