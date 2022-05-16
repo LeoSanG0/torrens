@@ -66,7 +66,7 @@ var table_user
                     async: false
                 }).done(function(response){
 
-                    if(response.type == "success"){
+                    if(response.type == 'success'){
                         Swal.fire({
                             title: 'Exito!',
                             text: response.msg,

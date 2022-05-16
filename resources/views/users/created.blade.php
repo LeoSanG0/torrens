@@ -63,14 +63,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
-                                    {!! Form::text('password', null, ['class' => 'form-control']) !!}
+                                    {!! Form::password('password', ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             {{-- Input for password --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label for="password_confirmation">Confirmar Contraseña</label>
-                                    {!! Form::text('password_confirmation', null, ['class' => 'form-control']) !!}
+                                    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             {{-- Input for Role

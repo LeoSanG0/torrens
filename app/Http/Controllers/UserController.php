@@ -29,34 +29,27 @@ class UserController extends Controller
 
         $data = User::orderBy('id', 'asc')->get();
         return Datatables::of($data)
-        ->addColumn('fullname',function($model){
-            return $model->fname.' '.$model->lname;
-        })
-        ->addColumn('status', function($model){
-            return $model->status == 1 ? 'Activo' : 'Inactivo';
-        })
-        ->addColumn('actions', function ($model)
-            {
+            ->addColumn('fullname', function ($model) {
+                return $model->fname . ' ' . $model->lname;
+            })
+            ->addColumn('status', function ($model) {
+                return $model->status == 1 ? 'Activo' : 'Inactivo';
+            })
+            ->addColumn('actions', function ($model) {
 
-            $buttons = '<div class="btn-group">';
-            /**
-             * Permisos
-             */
+                $buttons = '<div class="btn-group">';
                 $buttons .= "<a href='" . route('users.edit', $model->id) . "' data-id='$model->id' 
                     data-action='Update' class='btn btn-info' title='editar'><i class='fas fa-edit fa-1x'></i></a>";
 
                 $buttons .= "<a href='javascript:void(0)' data-id='$model->id' data-route='" . route('users.destroy', $model->id)
                     . "' class='btn btn-info btn-modal-delete-user' title='eliminar'><i class='fas fa-trash fa-1x'></i></a>";
 
-            $buttons .= '</div>';
 
-            return $buttons;
-        })->rawColumns(['actions'])->make(true);
+                $buttons .= '</div>';
+
+                return $buttons;
+            })->rawColumns(['actions'])->make(true);
     }
-
-
-
-
     public function index()
     {
         $users = User::paginate(10);
@@ -76,10 +69,8 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
-            // 'status' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:7|confirmed|regex:/[A-Z][0-9]/',
-            // 'roles' => 'required'
         ]);
 
         $input = $request->all();
@@ -105,9 +96,8 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
-            // 'roles' => 'required'
         ]);
 
         $input = $request->all();
@@ -119,7 +109,7 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
         return redirect()->route('users.index');
@@ -129,6 +119,6 @@ class UserController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index');
-    }
 
+    }
 }

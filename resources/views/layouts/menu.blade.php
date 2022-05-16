@@ -14,6 +14,6 @@
     @endcan
     <a class="nav-link" href="{{ route('tasks.index') }}">
         <i class="fas fa-clipboard-list"></i><span>Tareas</span>
-        <span class="notification-tasks"></span>
+        {{-- <span class="notification-tasks"></span> --}}
     </a>
 </li>

@@ -19,17 +19,17 @@
                 
             </a>
 
-            <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-menu dropdown-menu-right" >
                 <div class="dropdown-title">
                     Tareas pendientes
                 </div>
-                <div id="notification-tasks"></div>
+                <div id="notification-tasks" ></div>
             </div>
         </li>
 
 
 
-        <li class="dropdown">
+        <li class="dropdown" >
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ asset('img/logo.png') }}"
                     class="rounded-circle mr-1 thumbnail-rounded user-thumbnail ">
