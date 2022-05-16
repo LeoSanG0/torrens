@@ -1,65 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+This application is designed to manage user tasks.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+It has a registration module, which performs data validation for email and password, such as:
 
-## About Laravel
+- The user must be a valid email.
+- The minimum password of 7 characters.
+- The password must have at least one number.
+- The password must have at least one capital letter.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Additionally, error messages are shown according to the validations, and the user can and must register in the application before entering the dashboard.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+It was made with a responsive design and with the client's institutional colors, the user enters the "tasks" view by default.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+In the content of the user model, a list of registered users is shown, although the data is sorted by id in the JSON, it is shown sorted by name (asc) and it shows the fields full name, phone, email and status.
 
-## Learning Laravel
+The user can execute CRUD of tasks in the view of this module, he can create tasks for himself and assign tasks to other registered users, a notification system was also implemented which notifies the assignment of tasks by other users and the creation of tasks by the user. Username.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Access to the different application modules are aligned to the requirements of:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- The home, user and task modules are only displayed by logged in users.
+- If the user has an active session, he cannot enter the login page.
+- The user module can only be seen by the administrator.
+- The tasks can only be viewed by the user who owns the activity and by the administrator.
 
-## Laravel Sponsors
+In addition to the initial requirements, a CRUD system was implemented for users, tasks and roles.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+The repository management flow used was Git Flow, using only the main and develop branch, in which all the development was carried out.
 
-### Premium Partners
+The entire application was made with responsive design.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+In the tasks module, the functionality of assigning tasks to other users was implemented, and users can accept or reject the task, tasks also have status management.
 
-## Contributing
+It was implemented:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+phpLaravel.
+JavascriptJQuery.
+MySQL.
+HTML.
+CSS.
 
-## Code of Conduct
+Libraries:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Laravel permission.
+Laravel collective HTML.
+Laravel UI Stisla.
+Laravel DataTables.
 
-## Security Vulnerabilities
+For the execution of the application, the db must be created in phpMyAdmin and named "torrens".
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Run the migrations and seeders:
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# torrens
+- php artisan migrate.
+- php artisan db:seed.
