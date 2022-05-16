@@ -27,7 +27,7 @@
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary btn-delete-user">Eliminar</button>
+                <button type="button" class="btn btn-primary btn-delete-user" >Eliminar</button>
             </div>
         </div>
     </div>
