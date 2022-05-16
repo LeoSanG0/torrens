@@ -179,6 +179,7 @@ return [
         //Add Spatie
 
         Spatie\Permission\PermissionServiceProvider::class
+        
 
     ],
 

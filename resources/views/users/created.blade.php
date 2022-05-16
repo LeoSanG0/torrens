@@ -18,7 +18,7 @@
                                         <span class="badge badge-danger">{{ $error }}</span>
                                     @endforeach
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">%times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
@@ -69,8 +69,8 @@
                             {{-- Input for password --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="confirm-password">Confirmar Contraseña</label>
-                                    {!! Form::text('confirm-password', null, ['class' => 'form-control']) !!}
+                                    <label for="password_confirmation">Confirmar Contraseña</label>
+                                    {!! Form::text('password_confirmation', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             {{-- Input for Role

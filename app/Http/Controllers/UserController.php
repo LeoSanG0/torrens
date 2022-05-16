@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Yajra\DataTables\DataTables;
+
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +22,40 @@ class UserController extends Controller
         $this->middleware('permission:users_edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:users_delete', ['only' => ['destroy']]);
     }
+
+
+    public function datatable()
+    {
+
+        $data = User::orderBy('id', 'asc')->get();
+        return Datatables::of($data)
+        ->addColumn('fullname',function($model){
+            return $model->fname.' '.$model->lname;
+        })
+        ->addColumn('status', function($model){
+            return $model->status == 1 ? 'Activo' : 'Inactivo';
+        })
+        ->addColumn('actions', function ($model)
+            {
+
+            $buttons = '<div class="btn-group">';
+            /**
+             * Permisos
+             */
+                $buttons .= "<a href='" . route('users.edit', $model->id) . "' data-id='$model->id' 
+                    data-action='Update' class='btn btn-info' title='editar'><i class='fas fa-edit fa-1x'></i></a>";
+
+                $buttons .= "<a href='javascript:void(0)' data-id='$model->id' data-route='" . route('users.destroy', $model->id)
+                    . "' class='btn btn-info btn-modal-delete-user' title='eliminar'><i class='fas fa-trash fa-1x'></i></a>";
+
+            $buttons .= '</div>';
+
+            return $buttons;
+        })->rawColumns(['actions'])->make(true);
+    }
+
+
+
 
     public function index()
     {
@@ -42,7 +78,7 @@ class UserController extends Controller
             'phone' => 'required',
             // 'status' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => ['required', 'string', 'min:7', 'confirmed', 'regex:/[A-Z][0-9]/'],
+            'password' => 'required|string|min:7|confirmed|regex:/[A-Z][0-9]/',
             // 'roles' => 'required'
         ]);
 

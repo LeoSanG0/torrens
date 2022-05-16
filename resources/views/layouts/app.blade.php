@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('web/css/components.css') }}"> --}}
     {{-- <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}"> --}}
+    <link href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" type="text/css" />
@@ -88,6 +89,7 @@
 <script src="{{ asset('web/js/scripts.js') }}"></script>
 <script src="{{ mix('assets/js/profile.js') }}"></script>
 <script src="{{ mix('assets/js/custom/custom.js') }}"></script>
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 @yield('page_js')
 @yield('scripts')
 <script>
@@ -117,7 +119,7 @@
 
     function notificatinTasks() {
         $.ajax({
-            url: 'tasks/user',
+            url: '/tasks/user',
             type: 'POST'
         }).done(function(response) {
             let tasks = response.tasks;

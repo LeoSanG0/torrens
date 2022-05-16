@@ -23,7 +23,7 @@
                                 </div>
                             @endif
 
-                            {!! Form::model($user, ['method' => 'PATCH', 'route' => ['users.update', $user->id]]) !!}
+                            {!! Form::model($user, ['method' => 'POST', 'route' => ['users.update', $user->id]]) !!}
                             {{-- Input for fname --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">

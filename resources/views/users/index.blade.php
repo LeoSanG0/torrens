@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('title', 'Usuarios')
 @section('content')
     <section class="section">
@@ -20,7 +20,6 @@
                                     <th style="color: #fff;">Teléfono</th>
                                     <th style="color: #fff;">e-mail</th>
                                     <th style="color: #fff;">Estado</th>
-                                    <th style="color: #fff;">e-mail</th>
                                     <th style="color: #fff;">Acciones</th>
                                 <tbody>
                                 </tbody>
@@ -31,13 +30,6 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->status }}</td>
-                                        <td>
-                                            @if (!empty($user->getRoleNames()))
-                                                @foreach ($user->getRoleNames() as $roleName)
-                                                    <h5><span class="badge badge-dark">{{ $roleName }}</span></h5>
-                                                @endforeach
-                                            @endif
-                                        </td>
                                         <td>
                                             <a class="btn btn-info"
                                                 href="{{ route('users.edit', $user->id) }}">Editar</a>
@@ -63,4 +55,41 @@
 @section('scripts')
     <script src="{{ asset('js/users/index.js') }}"></script>
 @endsection
-@endsection
+@endsection --}}
+
+@extends('layouts.app')
+@section('title', 'Usuarios')
+@section('content')
+    <section class="section">
+        <div class="section-header">
+            <h3 class="page__heading">Usuarios</h3>
+        </div>
+        <br>
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                        <br>
+                        {{-- @can('create-user') --}}
+                            <a class="btn btn-warning" href="{{ route('users.create') }}">Nuevo</a>
+                        {{-- @endcan --}}
+                        <br>
+                        <div class="table-responsive">
+                            <br>
+                            <table id="table_user" class="table table-striped mt-2">
+                            </table>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @include('users.destroy')
+    @section('scripts')
+        <script src="/js/users/index.js"></script>
+    @endsection
+@endsection 
+
+
+
