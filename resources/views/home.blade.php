@@ -11,34 +11,31 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                
+                                @can('users_show')
 
                                 <div class="col-md-4 col-xl-4">
-
+                                    
                                     <div class="card bg-c-blue order-card">
                                         <div class="card-block">
                                             <h5>Usuarios</h5>
-                                            @php
-                                                use App\Models\User;
-                                                $cant_users = User::count();
-                                            @endphp
                                             <h2 class="text-right"><i
-                                                    class="fa fa-users f-left"></i><span>{{ $cant_users }}</span></h2>
+                                                    class="fa fa-users f-left"></i><span>{{ $users }}</span></h2>
                                             <p class="m-b-0 text-right"><a href="/users" class="text-white">Ver más</a>
                                             </p>
                                         </div>
                                     </div>
 
                                 </div>
+                                @endcan
+
                                 <div class="col-md-4 col-xl-4">
                                     <div class="card bg-c-green order-card">
                                         <div class="card-block">
                                             <h5>Tareas</h5>
-                                            @php
-                                                use App\Models\Task;
-                                                $cant_tasks = Task::count();
-                                            @endphp
+                                                {{-- {{ $task }} --}}
                                             <h2 class="text-right"><i
-                                                    class="fa fa-list f-left"></i><span>{{ $cant_tasks }}</span></h2>
+                                                    class="fa fa-list f-left"></i><span class="notification-tasks"></span></h2>
                                             <p class="m-b-0 text-right"><a href="/tasks" class="text-white">Ver más</a>
                                             </p>
                                         </div>

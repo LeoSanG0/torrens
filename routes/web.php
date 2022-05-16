@@ -37,5 +37,6 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('tasks', TaskController::class);
+    Route::post('tasks/user', [TaskController::class, 'tasksUser']);
 
 });

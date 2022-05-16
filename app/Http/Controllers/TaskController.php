@@ -40,12 +40,19 @@ class TaskController extends Controller
             'status' => 'required',
         ]);
 
-        Task::create(array_merge($request->all(), ['owner' => Auth::user()->id, 'assigned_to' => !empty($request->assign_to) ? $request->assign_to : auth()->user->id]));
+        Task::create(array_merge($request->all(), ['owner' => Auth::user()->id, 'assigned_to' => !empty($request->assigned_to) ? $request->assigned_to : auth()->user->id]));
         return redirect()->route('tasks.index');
     }
 
     public function show($id)
     {
+    }
+
+    public function tasksUser(){
+        $tasks = Task::where('assigned_to', Auth::user()->id)
+                    ->where('status', '<>', 'Finalizada')
+                    ->get();
+        return ['tasks' => $tasks, 'countTasks' => $tasks->count()];
     }
 
     public function edit(Task $task)

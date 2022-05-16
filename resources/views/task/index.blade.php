@@ -17,7 +17,8 @@
                                 <thead style="background-color: #f56200">
                                     <th style="color:#fff">Descripción</th>
                                     <th style="color:#fff">Estado</th>
-                                    <th style="color:#fff">Usuario</th>
+                                    <th style="color:#fff">Asignada a</th>
+                                    <th style="color:#fff">Creada por</th>
                                     <th style="color:#fff">Acciones</th>
                                 </thead>
                                 <tbody>
@@ -25,6 +26,7 @@
                                         <tr>
                                             <td>{{ $task->description }}</td>
                                             <td>{{ $task->status }}</td>                                            
+                                            <td>{{ $task->assignedTo->fullname }}</td>
                                             <td>{{ $task->ownerTask->fullname }}</td>
                                             <td>
                                                 @can('task_edit')
