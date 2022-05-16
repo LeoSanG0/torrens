@@ -30,6 +30,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
+
         return view('users.created', compact('roles'));
     }
 
@@ -39,10 +40,10 @@ class UserController extends Controller
             'fname' => 'required',
             'lname' => 'required',
             'phone' => 'required',
-            'status' => 'required',
+            // 'status' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'password' => ['required', 'string', 'min:7', 'confirmed', 'regex:/[A-Z][0-9]/'],
+            // 'roles' => 'required'
         ]);
 
         $input = $request->all();
@@ -70,7 +71,7 @@ class UserController extends Controller
             'phone' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            // 'roles' => 'required'
         ]);
 
         $input = $request->all();
@@ -90,14 +91,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        try {
-            $user->delete();
-            $type = 'success';
-            $msg  = 'El Usuario ha sido eliminado exito';
-        } catch (\Throwable $th) {
-            $type = 'error';
-            $msg  = 'El Usuario no puede eliminarse ' . $th;
-        }
-        return compact('type', 'msg');
+        $user->delete();
+        return redirect()->route('users.index');
     }
+
 }

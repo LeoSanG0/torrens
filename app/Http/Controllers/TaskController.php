@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class TaskController extends Controller
 {
@@ -19,21 +22,25 @@ class TaskController extends Controller
     {
         $tasks = Task::paginate(10);
         return view('task.index', compact('tasks'));
-
     }
 
     public function create()
     {
-        return view('task.created');
+        $users = User::where('status', 1)
+            ->selectRaw("concat(fname,' ',lname) as fullname, id")
+            ->pluck('fullname', 'id');
+
+        return view('task.created', compact('users'));
     }
 
     public function store(Request $request)
     {
         request()->validate([
             'description' => 'required',
-            'task_status' => 'required'
+            'status' => 'required',
         ]);
-        Task::create($request->all());
+
+        Task::create(array_merge($request->all(), ['owner' => Auth::user()->id, 'assigned_to' => !empty($request->assign_to) ? $request->assign_to : auth()->user->id]));
         return redirect()->route('tasks.index');
     }
 
@@ -43,33 +50,32 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        return view('task.edit', compact('task'));
+        $users = User::where('status', 1)
+        ->selectRaw("concat(fname,' ',lname) as fullname, id")
+        ->pluck('fullname', 'id');
+
+        return view('task.edit', compact('task', 'users'));
     }
 
     public function update(Request $request, Task $task)
     {
         request()->validate([
             'description' => 'required',
-            'task_status' => 'required'
+            'status' => 'required'
         ]);
-        $task->update($request->all());
-        return redirect()->route('tasks.index');
 
+        $request->assign_to = !empty($request->assign_to) ? $request->assigned_to : Auth::user()->id;
+
+        $task->update($request->all());
+        
+
+        
+        return redirect()->route('tasks.index');
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
         return redirect()->route('tasks.index');
-        // try {
-        //     $task->delete();
-        //     $type = 'success';
-        //     $msg  = 'La tarea ha sido eliminada exito';
-        // } catch (\Throwable $th) {
-        //     $type = 'error';
-        //     $msg  = 'La tarea no puede eliminarse ' . $th;
-        // }
-        // return compact('type', 'msg');
-
     }
 }

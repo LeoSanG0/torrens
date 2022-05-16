@@ -16,7 +16,6 @@ class SeederTableUsers extends Seeder
             'lname'=>'administrador',
             'phone'=>'3195555555',
             'email'=>'admin@torrens.com',
-            'status'=>'Active',
             'password'=> bcrypt('1234')
         ])->assignRole('Super-admin');
     }

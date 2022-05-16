@@ -52,13 +52,13 @@
                                     {!! Form::text('email', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            {{-- Input for Status --}}
+                            {{-- Input for Status
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label for="status">Estado</label>
                                     {!! Form::text('status', null, ['class' => 'form-control']) !!}
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- Input for password --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
@@ -73,13 +73,13 @@
                                     {!! Form::text('confirm-password', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            {{-- Input for Role --}}
+                            {{-- Input for Role
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label for="">Rol</label>
-                                    {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
+                                    {!! Form::select('roles[]', $roles, [], ['class' => 'form-control']) !!}
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
@@ -91,6 +91,5 @@
                 </div>
             </div>
         </div>
-        {{-- </div> --}}
     </section>
 @endsection

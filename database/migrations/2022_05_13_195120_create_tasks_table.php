@@ -11,8 +11,14 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->string('task_status');
+            $table->enum('status', ['Aceptada', 'En curso', 'En revisión', 'Finalizada', 'Rechazada']);
+            $table->bigInteger('owner')->unsigned();
+            $table->bigInteger('assigned_to')->unsigned();
             $table->timestamps();
+
+            $table->foreign('owner')->references('id')->on('users');
+            $table->foreign('assigned_to')->references('id')->on('users');
+
         });
     }
 

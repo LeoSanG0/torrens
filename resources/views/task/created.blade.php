@@ -34,10 +34,18 @@
                             {{-- Input for task status --}}
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label for="task_status">Estado</label>
-                                    {!! Form::text('task_status', null, ['class' => 'form-control']) !!}
+                                    <label for="status">Estado</label>
+                                    {!! Form::select('status', ['Aceptada' => 'Aceptada','En curso' => 'En curso','En revisión' => 'En revisión', 'Finalizada' => 'Finalizada','Rechazada' => 'Rechazada'],null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="assigned_to">Asignar a:</label>
+                                    {!! Form::select('assigned_to', $users, null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+
+
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>

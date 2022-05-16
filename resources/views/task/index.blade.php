@@ -24,8 +24,8 @@
                                     @foreach ($tasks as $task)
                                         <tr>
                                             <td>{{ $task->description }}</td>
-                                            <td>{{ $task->task_status }}</td>
-                                            <td>Aqui debe ir el nombre del user</td>
+                                            <td>{{ $task->status }}</td>                                            
+                                            <td>{{ $task->ownerTask->fullname }}</td>
                                             <td>
                                                 @can('task_edit')
                                                     <a class="btn btn-primary"

@@ -1,6 +1,6 @@
 @extends('layouts.auth_app')
 @section('title')
-    Admin Login
+    Inicio de sesion
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     
-                    <a class="btn btn-primary" href="{{ route('users.create') }}">Registrarme</a>
+                    <a class="btn btn-primary" href="{{ route('register') }}">Registrarme</a>
     
                 </div>
 
